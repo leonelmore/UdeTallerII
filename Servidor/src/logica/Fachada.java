@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import excepciones.ConfiguracionException;
 import excepciones.GuardarDatosException;
-import persistencia.CargarConfiguracion;
+import excepciones.PeliculaRepetidaException;
 import persistencia.Persistencia;
+import utilidades.CargarConfiguracion;
+import utilidades.MonitorRW;
 import logica.VOs.VODatoRanking;
 import logica.VOs.VODatosJugador;
 import logica.VOs.VODatosPartida;
@@ -20,8 +22,26 @@ public class Fachada implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public void registrarPelicula(VODatosPelicula unVOPelicula) {
-		//TODO: Implementar método
+	private ABBPeliculas listaDePeliculas;
+	
+	public Fachada(){
+		listaDePeliculas = new ABBPeliculas();
+	}
+	
+	public void registrarPelicula(VODatosPelicula unVOPelicula) throws PeliculaRepetidaException {
+		String titulo = unVOPelicula.getTitulo().toUpperCase().trim().replaceAll(" +", " ");
+		String descripcion = unVOPelicula.getDescripcion().toUpperCase().trim().replaceAll(" +", " ");
+		MonitorRW.getInstancia().comienzoLectura();
+		if (listaDePeliculas.member(titulo)) {
+			MonitorRW.getInstancia().terminoLectura();
+			throw new excepciones.PeliculaRepetidaException("La película "+titulo+" ya existe.");
+		}
+		else {
+			MonitorRW.getInstancia().terminoLectura();
+			MonitorRW.getInstancia().comienzoEscritura();
+			listaDePeliculas.insert(new Pelicula(titulo,descripcion));
+			MonitorRW.getInstancia().terminoEscritura();
+		}
 	}
 	
 	public ArrayList<VODatosPelicula> listarPeliculas(){
@@ -77,6 +97,14 @@ public class Fachada implements Serializable {
 	public ArrayList<VODatoRanking> getRankingGeneral(){
 		return null;
 		//TODO: Implementar método.
+	}
+
+	public ABBPeliculas getListaDePeliculas() {
+		return listaDePeliculas;
+	}
+
+	public void setListaDePeliculas(ABBPeliculas listaDePeliculas) {
+		this.listaDePeliculas = listaDePeliculas;
 	}
 	
 }

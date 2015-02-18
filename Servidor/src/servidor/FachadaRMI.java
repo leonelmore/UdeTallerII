@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import excepciones.ConfiguracionException;
 import excepciones.GuardarDatosException;
+import excepciones.PeliculaRepetidaException;
 import logica.Fachada;
 import logica.VOs.VODatoRanking;
 import logica.VOs.VODatosJugador;
@@ -28,7 +29,7 @@ public class FachadaRMI extends UnicastRemoteObject implements IFachadaRMI{
 
 	@Override
 	public void registrarPelicula(VODatosPelicula unVOPelicula)
-			throws RemoteException {
+			throws RemoteException, PeliculaRepetidaException {
 		laFachada.registrarPelicula(unVOPelicula);
 	}
 

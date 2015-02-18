@@ -7,8 +7,8 @@ import java.rmi.registry.LocateRegistry;
 
 import excepciones.CargarDatosException;
 import excepciones.ConfiguracionException;
-import persistencia.CargarConfiguracion;
 import persistencia.Persistencia;
+import utilidades.CargarConfiguracion;
 import logica.Fachada;
 
 /* Esta clase es la que se corre en servidor.

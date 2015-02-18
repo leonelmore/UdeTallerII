@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import excepciones.ConfiguracionException;
 import excepciones.GuardarDatosException;
+import excepciones.PeliculaRepetidaException;
 import logica.VOs.VODatoRanking;
 import logica.VOs.VODatosJugador;
 import logica.VOs.VODatosPartida;
@@ -13,7 +14,7 @@ import logica.VOs.VODatosPelicula;
 import logica.VOs.VOLogin;
 
 public interface IFachadaRMI extends Remote{
-	public void registrarPelicula(VODatosPelicula unVOPelicula) throws RemoteException;
+	public void registrarPelicula(VODatosPelicula unVOPelicula) throws RemoteException, PeliculaRepetidaException;
 	public ArrayList<VODatosPelicula> listarPeliculas() throws RemoteException;
 	public void registrarJugador(VOLogin datosJugador) throws RemoteException;
 	public ArrayList<VODatosJugador> listarJugadores() throws RemoteException;

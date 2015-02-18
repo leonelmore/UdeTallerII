@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import excepciones.ConfiguracionException;
 import excepciones.GuardarDatosException;
+import excepciones.JugadorRepetidoException;
 import excepciones.PeliculaRepetidaException;
 import persistencia.Persistencia;
 import utilidades.CargarConfiguracion;
@@ -23,9 +24,10 @@ public class Fachada implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private ABBPeliculas listaDePeliculas;
-	
+	private ABBjugadores listaDeJugadores;
 	public Fachada(){
 		listaDePeliculas = new ABBPeliculas();
+		
 	}
 	
 	public void registrarPelicula(VODatosPelicula unVOPelicula) throws PeliculaRepetidaException {
@@ -45,8 +47,9 @@ public class Fachada implements Serializable {
 	}
 	
 	public ArrayList<VODatosPelicula> listarPeliculas(){
-		//TODO: Implementar método
-		return null;
+		        
+        return null;   
+		
 	}
 	
 	/*
@@ -54,8 +57,22 @@ public class Fachada implements Serializable {
 	 * registrarJugador(...) usa VOLogin, que es el mismo value object que se usa para
 	 * autenticar a un jugador.
 	 */
-	public void registrarJugador(VOLogin datosJugador){
-		//TODO: Implementar método
+	public void registrarJugador(VOLogin datosJugador)throws JugadorRepetidoException {
+		String codigo = datosJugador.getCodigo().toUpperCase().trim().replaceAll(" +", " ");
+		String userName = datosJugador.getUsuario().toUpperCase().trim().replaceAll(" +", "");
+		int puntaje = 0;
+		int cantPelAcer = 0;
+		MonitorRW.getInstancia().comienzoLectura();
+		if (listaDeJugadores.member(userName)) {
+			MonitorRW.getInstancia().terminoLectura();
+			throw new excepciones.JugadorRepetidoException("El jugador de nombre: "+userName+" ya existe.");
+		}
+		else {
+			MonitorRW.getInstancia().terminoLectura();
+			MonitorRW.getInstancia().comienzoEscritura();
+			listaDeJugadores.insert(new Jugador(codigo,userName,puntaje,cantPelAcer));
+			MonitorRW.getInstancia().terminoEscritura();
+		}
 	}
 	
 	public ArrayList<VODatosJugador> listarJugadores(){

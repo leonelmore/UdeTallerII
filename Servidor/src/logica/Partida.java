@@ -53,6 +53,8 @@ public void setAcertada(boolean acertada){
 public boolean getEnCurso(){	
 	return enCurso;
 }
+
+
 public void setEnCurso(boolean enCurso){
 	this.enCurso=enCurso;
 }

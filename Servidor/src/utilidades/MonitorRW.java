@@ -60,7 +60,10 @@ public class MonitorRW {
 	
 	public synchronized void terminoLectura() {
 		getInstancia().cantidadLeyendo--;
-		this.notify();
+		if (getInstancia().cantidadLeyendo == 0)
+		{
+			this.notify();
+		}
 	}
 	
 	public synchronized void comienzoEscritura(){

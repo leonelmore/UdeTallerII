@@ -23,13 +23,11 @@ public class Fachada implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Peliculas listaDePeliculas;
-	private Jugadores listaDeJugadores;
-	//LEONEL: lista de partidas va en jugador y no en Fachada
-	
+	private ABBPeliculas listaDePeliculas;
+	private ABBjugadores listaDeJugadores;
 	public Fachada(){
-		listaDePeliculas = new Peliculas();
-		listaDeJugadores = new Jugadores();
+		listaDePeliculas = new ABBPeliculas();
+		
 	}
 	
 	public void registrarPelicula(VODatosPelicula unVOPelicula) throws PeliculaRepetidaException {
@@ -62,7 +60,6 @@ public class Fachada implements Serializable {
 	public void registrarJugador(VOLogin datosJugador)throws JugadorRepetidoException {
 		String codigo = datosJugador.getCodigo().toUpperCase().trim().replaceAll(" +", " ");
 		String userName = datosJugador.getUsuario().toUpperCase().trim().replaceAll(" +", "");
-		//LEONEL: Hay que cambiar como se formatean codigo y username, para que no se quiten los espacios, etc.
 		int puntaje = 0;
 		int cantPelAcer = 0;
 		MonitorRW.getInstancia().comienzoLectura();
@@ -119,11 +116,11 @@ public class Fachada implements Serializable {
 		//TODO: Implementar método.
 	}
 
-	public Peliculas getListaDePeliculas() {
+	public ABBPeliculas getListaDePeliculas() {
 		return listaDePeliculas;
 	}
 
-	public void setListaDePeliculas(Peliculas listaDePeliculas) {
+	public void setListaDePeliculas(ABBPeliculas listaDePeliculas) {
 		this.listaDePeliculas = listaDePeliculas;
 	}
 	

@@ -9,7 +9,8 @@ public class Jugador {
         private int puntaje;
         private int cantPelAcer;
 		//private ListaPeliculas
-		
+		//LEONEL: En esta clase falta agregar la colección de partidas del jugador.
+        
 		public Jugador (String cod, String userN, int punt, int cantPelAcer )  //Constructor Jugador
 		{
 			this.codigo = cod;

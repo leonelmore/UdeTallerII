@@ -1,8 +1,12 @@
 package logica.VOs;
 
-public class VOLogin {
+import java.io.Serializable;
+
+public class VOLogin implements Serializable{
 	private String usuario;
 	private String codigo;
+	
+	
 	public String getUsuario() {
 		return usuario;
 	}
